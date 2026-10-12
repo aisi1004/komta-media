@@ -78,9 +78,77 @@
   footer.gp-footer { text-align:center; padding:28px 20px; color: var(--gp-muted); font-size:12.5px; border-top:1px solid var(--gp-line); }
   footer.gp-footer a { color: var(--gp-primary); font-weight:700; text-decoration:none; }
   footer.gp-footer a:hover { text-decoration:underline; }
+
+  /* 레이어 팝업 */
+  #gp-popup { position:fixed; top:20px; left:20px; z-index:9999; width:400px; max-width:86vw; box-shadow:0 12px 32px rgba(0,0,0,.25); border-radius:10px; overflow:hidden; background:#fff; }
+  #gp-popup-header { cursor:move; padding:6px 10px; background:#f3f3f3; border-bottom:1px solid #ddd; font-size:12px; color:#777; user-select:none; }
+  #gp-popup a { display:block; }
+  #gp-popup img { display:block; width:100%; height:auto; border:0; }
+  #gp-popup-footer { display:flex; }
+  #gp-popup-footer button { flex:1; padding:10px; font-size:13px; border:none; background:#2e5339; color:#fff; cursor:pointer; }
+  #gp-popup-footer button:last-child { background:#555; }
+  #gp-popup-footer button:hover { opacity:.9; }
 </style>
 </head>
 <body>
+
+<div id="gp-popup">
+  <div id="gp-popup-header">끌어서 이동</div>
+  <a href="https://komta.org/bbs/content.php?co_id=apply_v3_entry" target="_blank" rel="noopener">
+    <img src="popup-event.webp" alt="2026 대전 갈대숲 eco 트레킹 참가신청 안내" width="400" height="727">
+  </a>
+  <div id="gp-popup-footer">
+    <button type="button" id="gp-popup-hide24">24시간 동안 다시 열람하지 않습니다.</button>
+    <button type="button" id="gp-popup-close">닫기</button>
+  </div>
+</div>
+<script>
+(function(){
+  var KEY = 'gp_popup_hide_until';
+  try {
+    var until = parseInt(localStorage.getItem(KEY) || '0', 10);
+    if (until && Date.now() < until) {
+      document.getElementById('gp-popup').style.display = 'none';
+      return;
+    }
+  } catch (e) {}
+
+  var popup = document.getElementById('gp-popup');
+  document.getElementById('gp-popup-close').addEventListener('click', function(){
+    popup.style.display = 'none';
+  });
+  document.getElementById('gp-popup-hide24').addEventListener('click', function(){
+    try { localStorage.setItem(KEY, String(Date.now() + 24 * 60 * 60 * 1000)); } catch (e) {}
+    popup.style.display = 'none';
+  });
+
+  var header = document.getElementById('gp-popup-header');
+  var startX, startY, origX, origY, dragging = false;
+  function onMove(x, y) {
+    popup.style.left = (origX + x - startX) + 'px';
+    popup.style.top = (origY + y - startY) + 'px';
+  }
+  header.addEventListener('mousedown', function(e){
+    e.preventDefault();
+    dragging = true;
+    startX = e.clientX; startY = e.clientY;
+    origX = popup.offsetLeft; origY = popup.offsetTop;
+    function onMouseMove(e){ if (dragging) onMove(e.clientX, e.clientY); }
+    function onMouseUp(){ dragging = false; document.removeEventListener('mousemove', onMouseMove); document.removeEventListener('mouseup', onMouseUp); }
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+  });
+  header.addEventListener('touchstart', function(e){
+    var t = e.touches[0];
+    startX = t.clientX; startY = t.clientY;
+    origX = popup.offsetLeft; origY = popup.offsetTop;
+    function onTouchMove(e){ var t = e.touches[0]; onMove(t.clientX, t.clientY); }
+    function onTouchEnd(){ document.removeEventListener('touchmove', onTouchMove); document.removeEventListener('touchend', onTouchEnd); }
+    document.addEventListener('touchmove', onTouchMove);
+    document.addEventListener('touchend', onTouchEnd);
+  });
+})();
+</script>
 
 <header class="gp-header">
   <div class="gp-container gp-header-inner">
