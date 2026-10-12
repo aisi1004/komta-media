@@ -81,7 +81,7 @@
 
   /* 레이어 팝업 */
   #gp-popup { position:fixed; top:20px; left:20px; z-index:9999; width:400px; max-width:86vw; box-shadow:0 12px 32px rgba(0,0,0,.25); border-radius:10px; overflow:hidden; background:#fff; }
-  #gp-popup-header { cursor:move; height:8px; background:#f3f3f3; border-bottom:1px solid #ddd; user-select:none; }
+  #gp-popup-header { cursor:move; padding:6px 10px; background:#f3f3f3; border-bottom:1px solid #ddd; font-size:12px; user-select:none; }
   #gp-popup a { display:block; }
   #gp-popup img { display:block; width:100%; height:auto; border:0; }
   #gp-popup-footer { display:flex; }
@@ -89,14 +89,14 @@
   #gp-popup-footer button:last-child { background:#555; }
   #gp-popup-footer button:hover { opacity:.9; }
   @media (max-width:640px) {
-    #gp-popup { width:62vw; max-width:260px; left:50%; top:16px; transform:translateX(-50%); }
+    #gp-popup { width:62vw; max-width:260px; }
   }
 </style>
 </head>
 <body>
 
 <div id="gp-popup">
-  <div id="gp-popup-header"></div>
+  <div id="gp-popup-header">&nbsp;</div>
   <a href="https://komta.org/bbs/content.php?co_id=apply_v3_entry" target="_blank" rel="noopener">
     <img src="popup-event.webp" alt="2026 대전 갈대숲 eco 트레킹 참가신청 안내" width="400" height="727">
   </a>
@@ -124,6 +124,14 @@
     try { localStorage.setItem(KEY, String(Date.now() + 24 * 60 * 60 * 1000)); } catch (e) {}
     popup.style.display = 'none';
   });
+
+  // 모바일 화면에서는 가운데로 재배치합니다. CSS만으로 가운데 정렬하면(예: transform)
+  // 드래그 이동 때 좌표 기준이 어긋나므로, 드래그와 같은 방식(인라인 style.left/top)으로 맞춥니다.
+  if (window.innerWidth <= 640) {
+    var w = popup.offsetWidth;
+    popup.style.left = Math.max(8, (window.innerWidth - w) / 2) + 'px';
+    popup.style.top = '16px';
+  }
 
   var header = document.getElementById('gp-popup-header');
   var startX, startY, origX, origY, dragging = false;
