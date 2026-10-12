@@ -3,68 +3,212 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>2026 대전 갈대숲 eco 트레킹 - 행사 이미지 자료</title>
-<meta name="description" content="2026 대전 갈대숲 eco 트레킹 행사의 포스터·코스맵·기념품·경품 이미지 자료 페이지입니다.">
+<title>2026 대전 갈대숲 eco 트레킹</title>
+<meta name="description" content="2026년 11월 14일(토) 갑천생태호수공원에서 열리는 2026 대전 갈대숲 eco 트레킹 공식 안내 페이지입니다. 참가신청은 공식 홈페이지 komta.org 에서 진행합니다.">
+<link rel="icon" href="https://komta.org/theme/gapcheonfestival/img/gapcheon/logo-2026.png">
 <style>
-  :root { --fg:#1f2a24; --muted:#6b7a71; --line:#e3e8e4; --primary:#2e5339; }
+  :root {
+    --gp-primary: #2e5339;
+    --gp-primary-dark: #1f3a29;
+    --gp-accent: #d9622b;
+    --gp-muted: #5c6459;
+    --gp-line: #e3e8e4;
+    --gp-surface-2: #f3f6f3;
+  }
   * { box-sizing: border-box; }
-  body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Pretendard", "Malgun Gothic", sans-serif; color: var(--fg); background:#fff; }
-  header { padding: 32px 20px 20px; text-align:center; border-bottom:1px solid var(--line); }
-  header h1 { margin:0 0 8px; font-size: 22px; }
-  header p { margin:0; color: var(--muted); font-size: 14px; }
-  header a { color: var(--primary); font-weight:700; text-decoration:none; }
-  header a:hover { text-decoration: underline; }
-  main { max-width: 960px; margin: 0 auto; padding: 28px 20px 60px; }
-  .grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 18px; margin-top: 16px; }
-  figure { margin:0; border:1px solid var(--line); border-radius: 12px; overflow:hidden; background:#fafbfa; }
-  figure img { display:block; width:100%; height:160px; object-fit:cover; }
-  figcaption { padding: 8px 10px; font-size: 13px; color: var(--muted); }
-  section { margin-top: 36px; }
-  section h2 { font-size: 16px; border-left: 4px solid var(--primary); padding-left: 10px; margin-bottom: 4px; }
-  footer { text-align:center; padding: 24px 20px; color: var(--muted); font-size: 12px; border-top:1px solid var(--line); margin-top: 40px; }
+  body { margin:0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Pretendard", "Malgun Gothic", sans-serif; color:#222; background:#fff; }
+  a { color: inherit; }
+  .gp-container { max-width: 1112px; margin: 0 auto; padding: 0 20px; }
+
+  /* 헤더 */
+  header.gp-header { position: sticky; top:0; z-index:100; background:#fff; border-bottom:1px solid var(--gp-line); box-shadow:0 1px 2px rgba(0,0,0,.06); }
+  .gp-header-inner { display:flex; align-items:center; justify-content:space-between; gap:16px; min-height:26px; padding:14px 0; }
+  .gp-logo { display:flex; align-items:center; gap:10px; text-decoration:none; font-weight:800; font-size:16px; color: var(--gp-primary-dark); }
+  .gp-logo img { height:38px; width:auto; display:block; }
+  .gp-btn-accent { display:inline-block; background: var(--gp-accent); color:#fff; font-weight:700; font-size:14px; padding:9px 20px; border-radius:999px; text-decoration:none; white-space:nowrap; }
+  .gp-btn-accent:hover { opacity:.92; }
+
+  /* 히어로 */
+  .gp-hero { position:relative; min-height:360px; display:flex; align-items:center; justify-content:center; text-align:center; background:#17231b center/cover no-repeat; }
+  .gp-hero::before { content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(10,20,12,.35), rgba(10,20,12,.6)); }
+  .gp-hero-inner { position:relative; z-index:1; color:#fff; padding: 56px 20px; }
+  .gp-hero-tagline { margin:0 0 10px; font-size:14px; font-weight:700; letter-spacing:.08em; color:#e9c9a8; }
+  .gp-hero-title { margin:0; font-size:clamp(24px,4.2vw,40px); font-weight:800; line-height:1.3; }
+  .gp-hero-date { margin:16px 0 0; font-size:15px; opacity:.92; }
+  .gp-hero-btn { display:inline-block; margin-top:26px; background: var(--gp-accent); color:#fff; font-weight:800; font-size:16px; padding:13px 32px; border-radius:999px; text-decoration:none; box-shadow:0 8px 20px rgba(217,98,43,.35); }
+  .gp-hero-btn:hover { opacity:.92; }
+  .gp-hero-note { margin-top:10px; font-size:12px; opacity:.75; }
+
+  /* 안내 배너 */
+  .gp-infobar { background: var(--gp-surface-2); border-bottom:1px solid var(--gp-line); padding:12px 20px; text-align:center; font-size:14px; color: var(--gp-muted); }
+  .gp-infobar a { color: var(--gp-primary); font-weight:700; text-decoration:underline; }
+
+  section { padding: 48px 0; }
+  .gp-section-title { margin:0 0 24px; font-size:22px; font-weight:800; color:#1b2420; text-align:center; }
+  .gp-section-desc { margin:-14px 0 28px; text-align:center; font-size:14px; color:var(--gp-muted); }
+
+  /* 대회 안내 카드 */
+  .gp-eventcard { display:grid; grid-template-columns: 300px 1fr; gap:28px; background:#fff; border:1px solid var(--gp-line); border-radius:16px; overflow:hidden; }
+  .gp-eventcard-poster img { display:block; width:100%; height:100%; object-fit:cover; }
+  .gp-eventcard-body { padding: 24px 24px 24px 0; }
+  .gp-eventcard-body h3 { margin:0 0 14px; font-size:17px; color: var(--gp-primary-dark); }
+  .gp-eventcard-table { width:100%; border-collapse:collapse; font-size:14px; }
+  .gp-eventcard-table tr { display:flex; border-top:1px solid var(--gp-line); padding:9px 0; }
+  .gp-eventcard-table tr:first-child { border-top:none; }
+  .gp-eventcard-table th { width:92px; flex-shrink:0; text-align:left; color: var(--gp-muted); font-weight:600; }
+  .gp-eventcard-table td { color:#222; }
+  .gp-eventcard-table td a { color: var(--gp-primary); font-weight:700; text-decoration:underline; }
+  @media (max-width:700px) { .gp-eventcard { grid-template-columns:1fr; } .gp-eventcard-poster img{ height:220px; } .gp-eventcard-body{ padding:0 20px 20px; } }
+
+  /* 그리드 카드 */
+  .gp-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap:18px; }
+  figure.gp-card { margin:0; border:1px solid var(--gp-line); border-radius:14px; overflow:hidden; background:#fafbfa; }
+  figure.gp-card img { display:block; width:100%; height:170px; object-fit:cover; }
+  figure.gp-card figcaption { padding:12px 14px; }
+  figure.gp-card .gp-card-name { font-size:14px; font-weight:800; color:#1b2420; }
+  figure.gp-card .gp-card-desc { margin-top:4px; font-size:12.5px; line-height:1.5; color: var(--gp-muted); }
+
+  .gp-course-map img { display:block; width:100%; border-radius:14px; border:1px solid var(--gp-line); }
+
+  .gp-cta { background: var(--gp-primary-dark); color:#fff; text-align:center; }
+  .gp-cta h2 { margin:0 0 10px; font-size:22px; font-weight:800; }
+  .gp-cta p { margin:0 0 24px; font-size:14px; color:#cfd9d2; }
+  .gp-cta .gp-hero-btn { box-shadow:none; }
+
+  footer.gp-footer { text-align:center; padding:28px 20px; color: var(--gp-muted); font-size:12.5px; border-top:1px solid var(--gp-line); }
+  footer.gp-footer a { color: var(--gp-primary); font-weight:700; text-decoration:none; }
+  footer.gp-footer a:hover { text-decoration:underline; }
 </style>
 </head>
 <body>
-<header>
-  <h1>2026 대전 갈대숲 eco 트레킹</h1>
-  <p>행사 포스터·코스맵·기념품·경품 이미지 자료 모음</p>
-  <p><a href="https://komta.org">공식 홈페이지 komta.org 바로가기 →</a></p>
+
+<header class="gp-header">
+  <div class="gp-container gp-header-inner">
+    <a class="gp-logo" href="https://komta.org">
+      <img src="https://komta.org/theme/gapcheonfestival/img/gapcheon/logo-2026.png" alt="2026 대전 갈대숲 eco 트레킹">
+    </a>
+    <a class="gp-btn-accent" href="https://komta.org/bbs/content.php?co_id=apply_v3_entry">참가 신청</a>
+  </div>
 </header>
-<main>
-  <section>
-    <h2>행사 안내</h2>
-    <div class="grid">
-      <figure><img src="poster.webp" alt="2026 대전 갈대숲 eco 트레킹 포스터"><figcaption>행사 포스터</figcaption></figure>
-      <figure><img src="course-map.webp" alt="코스맵"><figcaption>코스맵</figcaption></figure>
-      <figure><img src="hero-bg.webp" alt="갑천생태호수공원 풍경"><figcaption>갑천생태호수공원</figcaption></figure>
+
+<div class="gp-infobar">
+  이 페이지는 <strong>komta.org</strong>의 행사 이미지 자료를 모아둔 안내 페이지입니다 · 참가신청·신청조회는 <a href="https://komta.org">공식 홈페이지</a>에서 진행해 주세요.
+</div>
+
+<section class="gp-hero" style="background-image:url('hero-bg.webp');">
+  <div class="gp-hero-inner">
+    <p class="gp-hero-tagline">걷는 즐거움이, 더 큰 나눔으로 이어집니다</p>
+    <h1 class="gp-hero-title">2026 대전 갈대숲 eco 트레킹</h1>
+    <p class="gp-hero-date">2026년 11월 14일(토) 오전 9시 · 갑천생태호수공원</p>
+    <a class="gp-hero-btn" href="https://komta.org/bbs/content.php?co_id=apply_v3_entry">참가 신청하기</a>
+    <p class="gp-hero-note">신청은 공식 홈페이지 komta.org 에서 진행됩니다</p>
+  </div>
+</section>
+
+<section>
+  <div class="gp-container">
+    <h2 class="gp-section-title">대회 안내</h2>
+    <div class="gp-eventcard">
+      <div class="gp-eventcard-poster">
+        <img src="poster.webp" alt="2026 대전 갈대숲 eco 트레킹 포스터">
+      </div>
+      <div class="gp-eventcard-body">
+        <h3>건강한 도시 대전과 화합의 가치를 함께 만들어갑니다.</h3>
+        <table class="gp-eventcard-table">
+          <tr><th>행사명</th><td>2026 대전 갈대숲 eco 트레킹</td></tr>
+          <tr><th>일시</th><td>2026년 11월 14일(토) 오전 9시</td></tr>
+          <tr><th>장소</th><td>갑천생태호수공원</td></tr>
+          <tr><th>코스</th><td>약 7km</td></tr>
+          <tr><th>모집인원</th><td>1,500명</td></tr>
+          <tr><th>참가비</th><td>회원 20,000원(무료 가입) / 비회원 30,000원(미성년자 20,000원)</td></tr>
+          <tr><th>주최</th><td>한국등산트레킹협회 / 뉴스아시아</td></tr>
+          <tr><th>신청방법</th><td><a href="https://komta.org/bbs/content.php?co_id=apply_v3_entry">참가신청 바로가기 →</a></td></tr>
+        </table>
+      </div>
     </div>
-  </section>
-  <section>
-    <h2>참가 기념품</h2>
-    <div class="grid">
-      <figure><img src="souvenir-ecobag.webp" alt="에코백"><figcaption>에코백</figcaption></figure>
-      <figure><img src="souvenir-medal.webp" alt="완주메달"><figcaption>완주메달</figcaption></figure>
-      <figure><img src="souvenir-snack.webp" alt="간식"><figcaption>간식·음료수</figcaption></figure>
-      <figure><img src="souvenir-socks.webp" alt="양말"><figcaption>양말</figcaption></figure>
+  </div>
+</section>
+
+<section style="background: var(--gp-surface-2);">
+  <div class="gp-container">
+    <h2 class="gp-section-title" style="margin-bottom:8px;">기념품 안내</h2>
+    <p class="gp-section-desc">참가자 전원에게 완주의 순간을 담은 기념품을 준비했습니다.</p>
+    <div class="gp-grid">
+      <figure class="gp-card">
+        <img src="souvenir-ecobag.webp" alt="에코백">
+        <figcaption><p class="gp-card-name">에코백</p><p class="gp-card-desc">넉넉한 수납공간과 포켓을 갖춘 실용적인 에코백입니다.</p></figcaption>
+      </figure>
+      <figure class="gp-card">
+        <img src="souvenir-medal.webp" alt="완주메달">
+        <figcaption><p class="gp-card-name">완주메달</p><p class="gp-card-desc">갈대숲을 함께 걸은 완주의 순간을 기념하는 메달입니다.</p></figcaption>
+      </figure>
+      <figure class="gp-card">
+        <img src="souvenir-snack.webp" alt="간식·음료수">
+        <figcaption><p class="gp-card-name">간식 · 음료수 · 생수</p><p class="gp-card-desc">든든하게 에너지를 채울 수 있도록 참가자 전원에게 제공합니다.</p></figcaption>
+      </figure>
+      <figure class="gp-card">
+        <img src="souvenir-socks.webp" alt="양말">
+        <figcaption><p class="gp-card-name">양말</p><p class="gp-card-desc">트레킹을 더욱 산뜻하게 즐길 수 있는 스포츠 양말입니다.</p></figcaption>
+      </figure>
     </div>
-  </section>
-  <section>
-    <h2>현장 추첨 경품</h2>
-    <div class="grid">
-      <figure><img src="prize-1.webp" alt="에코 전기자전거"><figcaption>에코 전기자전거</figcaption></figure>
-      <figure><img src="prize-2.webp" alt="애플 에어팟"><figcaption>애플 에어팟</figcaption></figure>
-      <figure><img src="prize-4.webp" alt="트레킹 점퍼 교환권"><figcaption>트레킹 점퍼 교환권</figcaption></figure>
+  </div>
+</section>
+
+<section>
+  <div class="gp-container">
+    <h2 class="gp-section-title" style="margin-bottom:8px;">현장 추첨 경품</h2>
+    <p class="gp-section-desc">대회 당일 현장 추첨을 통해 다양한 경품을 드립니다.</p>
+    <div class="gp-grid">
+      <figure class="gp-card">
+        <img src="prize-1.webp" alt="에코 전기자전거">
+        <figcaption><p class="gp-card-name">에코 전기자전거</p><p class="gp-card-desc">현장 경품 지급 예정</p></figcaption>
+      </figure>
+      <figure class="gp-card">
+        <img src="prize-2.webp" alt="애플 에어팟">
+        <figcaption><p class="gp-card-name">애플 에어팟</p><p class="gp-card-desc">현장 경품 지급 예정</p></figcaption>
+      </figure>
+      <figure class="gp-card">
+        <img src="prize-4.webp" alt="트레킹 점퍼 교환권">
+        <figcaption><p class="gp-card-name">트레킹 점퍼 교환권</p><p class="gp-card-desc">현장 교환권 지급 예정</p></figcaption>
+      </figure>
     </div>
-  </section>
-  <section>
-    <h2>향후 행사</h2>
-    <div class="grid">
-      <figure><img src="nextevent-tapjeongho.webp" alt="탑정호 수변생태공원"><figcaption>탑정호 수변생태공원·출렁다리</figcaption></figure>
+  </div>
+</section>
+
+<section style="background: var(--gp-surface-2);">
+  <div class="gp-container">
+    <h2 class="gp-section-title" style="margin-bottom:8px;">코스 안내</h2>
+    <p class="gp-section-desc">집결지 · 천변호수공원내 갈대숲길 왕복 · 누구나 부담 없이 참여 가능</p>
+    <div class="gp-course-map">
+      <img src="course-map.webp" alt="약 7km 코스맵 - 집결지에서 천변호수공원 갈대숲길 왕복">
     </div>
-  </section>
-</main>
-<footer>
-  (사)한국등산트레킹협회 · 2026 대전 갈대숲 eco 트레킹 · <a href="https://komta.org">komta.org</a>
+  </div>
+</section>
+
+<section>
+  <div class="gp-container">
+    <h2 class="gp-section-title" style="margin-bottom:8px;">향후 행사</h2>
+    <p class="gp-section-desc">한국등산트레킹협회의 향후 행사를 소개합니다.</p>
+    <div class="gp-grid">
+      <figure class="gp-card">
+        <img src="nextevent-tapjeongho.webp" alt="탑정호 수변생태공원·출렁다리">
+        <figcaption><p class="gp-card-name">탑정호 수변생태공원 · 출렁다리 겨울철새길</p><p class="gp-card-desc">일시 추후공개 · 탑정호</p></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="gp-cta">
+  <div class="gp-container">
+    <h2>지금 바로 참가 신청하세요</h2>
+    <p>신청은 공식 홈페이지 komta.org에서 진행됩니다.</p>
+    <a class="gp-hero-btn" href="https://komta.org/bbs/content.php?co_id=apply_v3_entry">참가 신청하기 →</a>
+  </div>
+</section>
+
+<footer class="gp-footer">
+  (사)한국등산트레킹협회 · 2026 대전 갈대숲 eco 트레킹 · <a href="https://komta.org">komta.org 공식 홈페이지</a>
 </footer>
+
 </body>
 </html>
