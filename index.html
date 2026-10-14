@@ -29,15 +29,11 @@
   .gp-btn-accent:hover { opacity:.92; }
 
   /* 히어로 */
-  .gp-hero { position:relative; min-height:360px; display:flex; align-items:center; justify-content:center; text-align:center; background:#17231b center/cover no-repeat; }
-  .gp-hero::before { content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(10,20,12,.35), rgba(10,20,12,.6)); }
-  .gp-hero-inner { position:relative; z-index:1; color:#fff; padding: 56px 20px; }
-  .gp-hero-tagline { margin:0 0 10px; font-size:14px; font-weight:700; letter-spacing:.08em; color:#e9c9a8; }
-  .gp-hero-title { margin:0; font-size:clamp(24px,4.2vw,40px); font-weight:800; line-height:1.3; }
-  .gp-hero-date { margin:16px 0 0; font-size:15px; opacity:.92; }
+  .gp-hero-fixed { line-height:0; }
+  .gp-hero-fixed a { display:block; }
+  .gp-hero-fixed img { display:block; width:100%; height:auto; }
   .gp-hero-btn { display:inline-block; margin-top:26px; background: var(--gp-accent); color:#fff; font-weight:800; font-size:16px; padding:13px 32px; border-radius:999px; text-decoration:none; box-shadow:0 8px 20px rgba(217,98,43,.35); }
   .gp-hero-btn:hover { opacity:.92; }
-  .gp-hero-note { margin-top:10px; font-size:12px; opacity:.75; }
 
   /* 안내 배너 */
   .gp-infobar { background: var(--gp-surface-2); border-bottom:1px solid var(--gp-line); padding:12px 20px; text-align:center; font-size:14px; color: var(--gp-muted); }
@@ -170,13 +166,10 @@
   </div>
 </header>
 
-<section class="gp-hero" style="background-image:url('hero-bg.webp');">
-  <div class="gp-hero-inner">
-    <p class="gp-hero-tagline">걷는 즐거움이, 더 큰 나눔으로 이어집니다</p>
-    <h1 class="gp-hero-title">2026 대전 갈대숲 eco 트레킹</h1>
-    <p class="gp-hero-date">2026년 11월 14일(토) 오전 9시 · 갑천생태호수공원</p>
-    <a class="gp-hero-btn" href="https://komta.org/bbs/content.php?co_id=apply_v3_entry">참가 신청하기</a>
-  </div>
+<section class="gp-hero-fixed">
+  <a href="https://komta.org/bbs/content.php?co_id=apply_v3_entry" aria-label="참가 신청하기">
+    <img src="hero-banner.webp" alt="2026 대전 갈대숲 eco 트레킹 2026.11.14(토) 09:00 갑천생태호수공원">
+  </a>
 </section>
 
 <section>
