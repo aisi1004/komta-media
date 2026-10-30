@@ -76,84 +76,101 @@
   footer.gp-footer a:hover { text-decoration:underline; }
 
   /* 레이어 팝업 */
-  #gp-popup { position:fixed; top:20px; left:20px; z-index:9999; width:400px; max-width:86vw; box-shadow:0 12px 32px rgba(0,0,0,.25); border-radius:10px; overflow:hidden; background:#fff; }
-  #gp-popup-header { cursor:move; padding:6px 10px; background:#f3f3f3; border-bottom:1px solid #ddd; font-size:12px; user-select:none; }
-  #gp-popup a { display:block; }
-  #gp-popup img { display:block; width:100%; height:auto; border:0; }
-  #gp-popup-footer { display:flex; }
-  #gp-popup-footer button { flex:1; padding:10px; font-size:12px; border:none; background:#2e5339; color:#fff; cursor:pointer; }
-  #gp-popup-footer button:last-child { background:#555; }
-  #gp-popup-footer button:hover { opacity:.9; }
+  .gp-popup { position:fixed; top:20px; left:20px; z-index:9999; width:400px; max-width:86vw; box-shadow:0 12px 32px rgba(0,0,0,.25); border-radius:10px; overflow:hidden; background:#fff; }
+  .gp-popup-header { cursor:move; padding:6px 10px; background:#f3f3f3; border-bottom:1px solid #ddd; font-size:12px; user-select:none; }
+  .gp-popup a { display:block; }
+  .gp-popup img { display:block; width:100%; height:auto; border:0; }
+  .gp-popup-footer { display:flex; }
+  .gp-popup-footer button { flex:1; padding:10px; font-size:12px; border:none; background:#2e5339; color:#fff; cursor:pointer; }
+  .gp-popup-footer button:last-child { background:#555; }
+  .gp-popup-footer button:hover { opacity:.9; }
+  /* 2번 팝업(참여 안내 유의사항): 이미지가 세로로 길어 팝업 안에서 스크롤로 봅니다. */
+  #gp-popup2 { left:440px; width:480px; }
+  .gp-popup-scroll { max-height:calc(100vh - 130px); max-height:min(727px, calc(100vh - 130px)); overflow-y:auto; overscroll-behavior:contain; }
   @media (max-width:640px) {
-    #gp-popup { width:62vw; max-width:260px; }
+    .gp-popup { width:62vw; max-width:260px; }
+    #gp-popup2 { width:86vw; max-width:400px; }
   }
 </style>
 </head>
 <body>
 
-<div id="gp-popup">
-  <div id="gp-popup-header">&nbsp;</div>
+<div class="gp-popup" id="gp-popup" data-key="gp_popup_hide_until">
+  <div class="gp-popup-header">&nbsp;</div>
   <a href="https://komta.org/bbs/content.php?co_id=apply_v3_entry" target="_blank" rel="noopener">
     <img src="popup-event.webp" alt="2026 대전 갈대숲 eco 트레킹 참가신청 안내" width="400" height="727">
   </a>
-  <div id="gp-popup-footer">
-    <button type="button" id="gp-popup-hide24">24시간 동안 다시 열람 안함.</button>
-    <button type="button" id="gp-popup-close">닫기</button>
+  <div class="gp-popup-footer">
+    <button type="button" class="gp-popup-hide24">24시간 동안 다시 열람 안함.</button>
+    <button type="button" class="gp-popup-close">닫기</button>
+  </div>
+</div>
+<div class="gp-popup" id="gp-popup2" data-key="gp_popup2_hide_until" data-mobile-top="40">
+  <div class="gp-popup-header">&nbsp;</div>
+  <div class="gp-popup-scroll">
+    <img src="popup-notice.webp" alt="2026 대전 갈대숲 eco 트레킹 참여 안내 유의사항" width="720" height="2138">
+  </div>
+  <div class="gp-popup-footer">
+    <button type="button" class="gp-popup-hide24">24시간 동안 다시 열람 안함.</button>
+    <button type="button" class="gp-popup-close">닫기</button>
   </div>
 </div>
 <script>
 (function(){
-  var KEY = 'gp_popup_hide_until';
-  try {
-    var until = parseInt(localStorage.getItem(KEY) || '0', 10);
-    if (until && Date.now() < until) {
-      document.getElementById('gp-popup').style.display = 'none';
-      return;
+  function initPopup(popup){
+    var KEY = popup.getAttribute('data-key');
+    try {
+      var until = parseInt(localStorage.getItem(KEY) || '0', 10);
+      if (until && Date.now() < until) {
+        popup.style.display = 'none';
+        return;
+      }
+    } catch (e) {}
+
+    popup.querySelector('.gp-popup-close').addEventListener('click', function(){
+      popup.style.display = 'none';
+    });
+    popup.querySelector('.gp-popup-hide24').addEventListener('click', function(){
+      try { localStorage.setItem(KEY, String(Date.now() + 24 * 60 * 60 * 1000)); } catch (e) {}
+      popup.style.display = 'none';
+    });
+
+    // 모바일 화면에서는 가운데로 재배치합니다. CSS만으로 가운데 정렬하면(예: transform)
+    // 드래그 이동 때 좌표 기준이 어긋나므로, 드래그와 같은 방식(인라인 style.left/top)으로 맞춥니다.
+    // 팝업이 여러 개면 data-mobile-top 으로 위치를 살짝 어긋나게 해서 겹쳐 있음을 알 수 있게 합니다.
+    if (window.innerWidth <= 640) {
+      var w = popup.offsetWidth;
+      popup.style.left = Math.max(8, (window.innerWidth - w) / 2) + 'px';
+      popup.style.top = (popup.getAttribute('data-mobile-top') || '16') + 'px';
     }
-  } catch (e) {}
 
-  var popup = document.getElementById('gp-popup');
-  document.getElementById('gp-popup-close').addEventListener('click', function(){
-    popup.style.display = 'none';
-  });
-  document.getElementById('gp-popup-hide24').addEventListener('click', function(){
-    try { localStorage.setItem(KEY, String(Date.now() + 24 * 60 * 60 * 1000)); } catch (e) {}
-    popup.style.display = 'none';
-  });
-
-  // 모바일 화면에서는 가운데로 재배치합니다. CSS만으로 가운데 정렬하면(예: transform)
-  // 드래그 이동 때 좌표 기준이 어긋나므로, 드래그와 같은 방식(인라인 style.left/top)으로 맞춥니다.
-  if (window.innerWidth <= 640) {
-    var w = popup.offsetWidth;
-    popup.style.left = Math.max(8, (window.innerWidth - w) / 2) + 'px';
-    popup.style.top = '16px';
+    var header = popup.querySelector('.gp-popup-header');
+    var startX, startY, origX, origY, dragging = false;
+    function onMove(x, y) {
+      popup.style.left = (origX + x - startX) + 'px';
+      popup.style.top = (origY + y - startY) + 'px';
+    }
+    header.addEventListener('mousedown', function(e){
+      e.preventDefault();
+      dragging = true;
+      startX = e.clientX; startY = e.clientY;
+      origX = popup.offsetLeft; origY = popup.offsetTop;
+      function onMouseMove(e){ if (dragging) onMove(e.clientX, e.clientY); }
+      function onMouseUp(){ dragging = false; document.removeEventListener('mousemove', onMouseMove); document.removeEventListener('mouseup', onMouseUp); }
+      document.addEventListener('mousemove', onMouseMove);
+      document.addEventListener('mouseup', onMouseUp);
+    });
+    header.addEventListener('touchstart', function(e){
+      var t = e.touches[0];
+      startX = t.clientX; startY = t.clientY;
+      origX = popup.offsetLeft; origY = popup.offsetTop;
+      function onTouchMove(e){ var t = e.touches[0]; onMove(t.clientX, t.clientY); }
+      function onTouchEnd(){ document.removeEventListener('touchmove', onTouchMove); document.removeEventListener('touchend', onTouchEnd); }
+      document.addEventListener('touchmove', onTouchMove);
+      document.addEventListener('touchend', onTouchEnd);
+    });
   }
-
-  var header = document.getElementById('gp-popup-header');
-  var startX, startY, origX, origY, dragging = false;
-  function onMove(x, y) {
-    popup.style.left = (origX + x - startX) + 'px';
-    popup.style.top = (origY + y - startY) + 'px';
-  }
-  header.addEventListener('mousedown', function(e){
-    e.preventDefault();
-    dragging = true;
-    startX = e.clientX; startY = e.clientY;
-    origX = popup.offsetLeft; origY = popup.offsetTop;
-    function onMouseMove(e){ if (dragging) onMove(e.clientX, e.clientY); }
-    function onMouseUp(){ dragging = false; document.removeEventListener('mousemove', onMouseMove); document.removeEventListener('mouseup', onMouseUp); }
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMouseUp);
-  });
-  header.addEventListener('touchstart', function(e){
-    var t = e.touches[0];
-    startX = t.clientX; startY = t.clientY;
-    origX = popup.offsetLeft; origY = popup.offsetTop;
-    function onTouchMove(e){ var t = e.touches[0]; onMove(t.clientX, t.clientY); }
-    function onTouchEnd(){ document.removeEventListener('touchmove', onTouchMove); document.removeEventListener('touchend', onTouchEnd); }
-    document.addEventListener('touchmove', onTouchMove);
-    document.addEventListener('touchend', onTouchEnd);
-  });
+  Array.prototype.forEach.call(document.querySelectorAll('.gp-popup'), initPopup);
 })();
 </script>
 
